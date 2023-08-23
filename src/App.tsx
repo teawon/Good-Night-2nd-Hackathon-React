@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
-import MainPage from "./pages/MainPage";
+import MovieListPage from "./pages/MovieListPage";
 
 function App() {
   return (
     <Router>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MovieListPage />} />
+        <Route path="/movies" element={<MovieListPage />} />
       </Routes>
     </Router>
   );
