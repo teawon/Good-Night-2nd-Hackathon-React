@@ -28,7 +28,7 @@ interface MovieItemProps {
   movie: MovieProps;
 }
 
-const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
+const MovieItem = ({ movie }: MovieItemProps) => {
   return (
     <MovieLink to={`/movie/${movie.id}`}>
       <MovieWrapper>

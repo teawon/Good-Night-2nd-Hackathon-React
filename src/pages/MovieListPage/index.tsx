@@ -34,7 +34,7 @@ const Title = styled.h1`
   margin-bottom: 20px;
 `;
 
-function MovieListPage() {
+const MovieListPage = () => {
   return (
     <MovieListWrapper>
       <Title>영화 목록</Title>
@@ -43,6 +43,6 @@ function MovieListPage() {
       ))}
     </MovieListWrapper>
   );
-}
+};
 
 export default MovieListPage;
