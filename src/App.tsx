@@ -1,16 +1,18 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
-import MovieListPage from "./pages/MovieListPage";
-import MovieDetailPage from "./pages/MovieDetailPage";
+import MovieList from "./pages/MovieList";
+import MovieDetail from "./pages/MovieDetail";
+import AddMovie from "pages/AddMovie";
 
 function App() {
   return (
     <Router>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<MovieListPage />} />
-        <Route path="/movies" element={<MovieListPage />} />
-        <Route path="/movie/:id" element={<MovieDetailPage />} />
+        <Route path="/" element={<MovieList />} />
+        <Route path="/movies" element={<MovieList />} />
+        <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/create-movie" element={<AddMovie />} />
       </Routes>
     </Router>
   );
