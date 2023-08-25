@@ -1,19 +1,25 @@
 import { useState } from "react";
 import styled from "styled-components";
+import DatePicker, { registerLocale } from "react-datepicker";
+import ko from "date-fns/locale/ko";
+import "react-datepicker/dist/react-datepicker.css";
+
+registerLocale("ko", ko);
 
 const AddMovie = () => {
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("스릴러");
-  const [endDate, setEndDate] = useState("");
-  const [openDate, setOpenDate] = useState("");
+  const [dateRange, setDateRange] = useState<[Date?, Date?]>([
+    undefined,
+    undefined,
+  ]);
 
   const handleSubmit = () => {
-    // TODO: API 호출 및 추가 로직
     const movieData = {
       title,
       genre,
-      endDate,
-      openDate,
+      startDate: dateRange[0]?.toISOString().split("T")[0],
+      endDate: dateRange[1]?.toISOString().split("T")[0],
     };
 
     console.log(movieData);
@@ -34,11 +40,28 @@ const AddMovie = () => {
           <option value="액션">액션</option>
         </Select>
 
-        <Label>개봉일:</Label>
-        <Input value={openDate} onChange={(e) => setOpenDate(e.target.value)} />
+        <Label>개봉일 ~ 마감일:</Label>
+        <DatePickerWrapper>
+          <DatePicker
+            selected={dateRange[0]}
+            startDate={dateRange[0]}
+            endDate={dateRange[1]}
+            onChange={(dates) => {
+              const [start, end] = dates as [Date?, Date?];
+              setDateRange([start, end]);
+            }}
+            dateFormat="yyyy-MM-dd"
+            selectsRange
+            inline
+            locale="ko"
+          />
+        </DatePickerWrapper>
 
-        <Label>마감일:</Label>
-        <Input value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        <DateText>
+          선택된 개봉일: {dateRange[0]?.toLocaleDateString() ?? "-"}
+          <br />
+          선택된 마감일: {dateRange[1]?.toLocaleDateString() ?? "-"}
+        </DateText>
 
         <SubmitButton onClick={handleSubmit}>영화 등록</SubmitButton>
       </Form>
@@ -100,6 +123,18 @@ const SubmitButton = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+`;
+
+const DatePickerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 8px 0;
+`;
+
+const DateText = styled.div`
+  margin: 10px 0;
+  color: #555;
 `;
 
 export default AddMovie;
