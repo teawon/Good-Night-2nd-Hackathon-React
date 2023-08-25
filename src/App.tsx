@@ -3,6 +3,7 @@ import GlobalStyles from "./GlobalStyles";
 import MovieList from "./pages/MovieList";
 import MovieDetail from "./pages/MovieDetail";
 import AddMovie from "pages/AddMovie";
+import EditMovie from "./pages/EditMovie";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<MovieList />} />
         <Route path="/movies" element={<MovieList />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/edit-movie/:id" element={<EditMovie />} />
         <Route path="/create-movie" element={<AddMovie />} />
       </Routes>
     </Router>
