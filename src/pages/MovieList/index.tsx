@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import MovieItem from "./components/MovieItem";
 import { MovieProps } from "utils/types";
+import { Link } from "react-router-dom";
 
 const MovieListPage = () => {
   // TODO : api 연결 필요
@@ -28,9 +29,11 @@ const MovieListPage = () => {
   return (
     <MovieListWrapper>
       <Title>영화 목록</Title>
+
       {MovieDummyData.map((movie) => (
         <MovieItem key={movie.id} movie={movie} />
       ))}
+      <AddMovieButton to="/create-movie">영화 추가</AddMovieButton>
     </MovieListWrapper>
   );
 };
@@ -44,6 +47,22 @@ const MovieListWrapper = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 20px;
+`;
+
+const AddMovieButton = styled(Link)`
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  position: fixed;
+  bottom: 20px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
 
 export default MovieListPage;
