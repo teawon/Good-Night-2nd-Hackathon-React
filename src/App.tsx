@@ -10,10 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MovieListPage />} />
         <Route path="/movies" element={<MovieListPage />} />
-        <Route
-          path="/movie/:id"
-          element={<MovieDetailPage></MovieDetailPage>}
-        />
+        <Route path="/movie/:id" element={<MovieDetailPage />} />
       </Routes>
     </Router>
   );

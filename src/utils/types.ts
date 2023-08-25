@@ -7,3 +7,9 @@ export interface MovieProps {
   genre: string;
   isCurrentlyShowing: boolean;
 }
+
+export interface ReviewProps {
+  id: number;
+  text: string;
+  rating: number;
+}
