@@ -65,11 +65,18 @@ const MovieListWrapper = styled.div`
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  border-radius: 10px;
 `;
 
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  letter-spacing: 1.5px;
+  font-weight: 600;
 `;
 
 const AddMovieButton = styled(Link)`
@@ -78,13 +85,15 @@ const AddMovieButton = styled(Link)`
   color: white;
   text-decoration: none;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.2s;
 
   position: fixed;
   bottom: 20px;
+  right: 20px;
 
   &:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
   }
 `;
 

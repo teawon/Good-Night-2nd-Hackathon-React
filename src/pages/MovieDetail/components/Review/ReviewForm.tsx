@@ -43,6 +43,7 @@ const ReviewForm = () => {
 const ReviewFormWrapper = styled.div`
   padding: 20px;
   border-top: 1px solid #e0e0e0;
+  margin-top: 20px;
 `;
 
 const TextArea = styled.textarea`
@@ -52,19 +53,39 @@ const TextArea = styled.textarea`
   resize: none;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 `;
 
 const RatingSelect = styled.select`
   margin-right: 10px;
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 `;
 
 const SubmitButton = styled.button`
-  padding: 5px 10px;
+  padding: 6px 12px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
 
 export default ReviewForm;

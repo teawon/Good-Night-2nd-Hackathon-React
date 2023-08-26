@@ -27,7 +27,16 @@ const ReviewList = () => {
 };
 
 const ReviewListWrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 30px;
+
+  h3 {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+  }
 `;
 
 export default ReviewList;
