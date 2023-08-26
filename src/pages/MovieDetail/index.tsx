@@ -18,7 +18,7 @@ const MovieDetailPage = () => {
         const response = await getMovie(Number(id));
         setMovie(response);
       } catch (error) {
-        console.error(error);
+        alert("영화 정보가 존재하지 않습니다.");
       }
     };
 

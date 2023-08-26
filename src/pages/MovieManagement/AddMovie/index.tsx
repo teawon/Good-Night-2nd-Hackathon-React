@@ -16,7 +16,7 @@ const AddMovie = () => {
 
   const handleSubmit = async () => {
     if (!dateRange[0] || !dateRange[1]) {
-      console.log("날짜를 모두 선택해주세요");
+      alert("날짜를 모두 선택해주세요");
       return;
     }
 
@@ -30,6 +30,7 @@ const AddMovie = () => {
       alert("영화가 성공적으로 추가되었습니다.");
       navigate("/");
     } catch (error) {
+      alert("영화가 성공적으로 추가되었습니다.");
       console.error(error);
     }
   };
