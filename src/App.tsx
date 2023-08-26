@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import MovieList from "./pages/MovieList";
 import MovieDetail from "./pages/MovieDetail";
-import AddMovie from "pages/AddMovie";
-import EditMovie from "./pages/EditMovie";
+import AddMovie from "pages/MovieManagement/AddMovie";
+import EditMovie from "./pages/MovieManagement/EditMovie";
 
 function App() {
   return (

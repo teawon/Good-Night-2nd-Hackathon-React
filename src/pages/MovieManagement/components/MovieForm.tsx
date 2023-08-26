@@ -1,39 +1,40 @@
-import { useState } from "react";
 import styled from "styled-components";
 import DatePicker, { registerLocale } from "react-datepicker";
-import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
+import ko from "date-fns/locale/ko";
 
 registerLocale("ko", ko);
 
-const AddMovie = () => {
-  const [title, setTitle] = useState("");
-  const [genre, setGenre] = useState("스릴러");
-  const [dateRange, setDateRange] = useState<[Date?, Date?]>([
-    undefined,
-    undefined,
-  ]);
+type MovieFormProps = {
+  title: string;
+  genre: string;
+  dateRange: [Date?, Date?];
+  onTitleChange: (value: string) => void;
+  onGenreChange: (value: string) => void;
+  onDateRangeChange: (value: [Date?, Date?]) => void;
+  onSubmit: () => void;
+  formType: "등록" | "수정";
+};
 
-  const handleSubmit = () => {
-    const movieData = {
-      title,
-      genre,
-      startDate: dateRange[0]?.toISOString().split("T")[0],
-      endDate: dateRange[1]?.toISOString().split("T")[0],
-    };
-
-    console.log(movieData);
-  };
-
+const MovieForm: React.FunctionComponent<MovieFormProps> = ({
+  title,
+  genre,
+  dateRange,
+  onTitleChange,
+  onGenreChange,
+  onDateRangeChange,
+  onSubmit,
+  formType,
+}) => {
   return (
     <Container>
-      <h2>영화 등록</h2>
+      <h2>{`영화 ${formType}`}</h2>
       <Form>
         <Label>제목:</Label>
-        <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input value={title} onChange={(e) => onTitleChange(e.target.value)} />
 
         <Label>장르:</Label>
-        <Select value={genre} onChange={(e) => setGenre(e.target.value)}>
+        <Select value={genre} onChange={(e) => onGenreChange(e.target.value)}>
           <option value="스릴러">스릴러</option>
           <option value="로맨스">로맨스</option>
           <option value="코믹">코믹</option>
@@ -48,7 +49,7 @@ const AddMovie = () => {
             endDate={dateRange[1]}
             onChange={(dates) => {
               const [start, end] = dates as [Date?, Date?];
-              setDateRange([start, end]);
+              onDateRangeChange([start, end]);
             }}
             dateFormat="yyyy-MM-dd"
             selectsRange
@@ -63,7 +64,7 @@ const AddMovie = () => {
           선택된 마감일: {dateRange[1]?.toLocaleDateString() ?? "-"}
         </DateText>
 
-        <SubmitButton onClick={handleSubmit}>영화 등록</SubmitButton>
+        <SubmitButton onClick={onSubmit}>{`영화 ${formType}`}</SubmitButton>
       </Form>
     </Container>
   );
@@ -137,4 +138,4 @@ const DateText = styled.div`
   color: #555;
 `;
 
-export default AddMovie;
+export default MovieForm;
