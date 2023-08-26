@@ -12,6 +12,8 @@ const MovieItem = ({ movie, deleteAction }: MovieItemProps) => {
   const navigate = useNavigate();
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
+  const isAdmin = JSON.parse(localStorage.getItem("isAdmin") || "false");
+
   const handleMovieClick = () => {
     navigate(`/movie/${movie.id}`);
   };
@@ -41,8 +43,12 @@ const MovieItem = ({ movie, deleteAction }: MovieItemProps) => {
         <MovieDetails>
           {movie.isCurrentlyShowing ? "상영중" : "상영 종료"}
         </MovieDetails>
-        <EditButton onClick={handleEditClick}>수정</EditButton>
-        <DeleteButton onClick={handleDeleteClick}>삭제</DeleteButton>
+        {isAdmin && (
+          <>
+            <EditButton onClick={handleEditClick}>수정</EditButton>
+            <DeleteButton onClick={handleDeleteClick}>삭제</DeleteButton>
+          </>
+        )}
       </MovieWrapper>
 
       {showDeletePopup && (

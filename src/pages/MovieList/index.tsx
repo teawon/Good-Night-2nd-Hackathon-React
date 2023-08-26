@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieProps[]>([]);
+  const [isAdmin, setIsAdmin] = useState<boolean>(
+    JSON.parse(localStorage.getItem("isAdmin") || "false")
+  );
 
   const deleteMovie = (id: number) => {
     const updatedMovies = movies.filter((movie) => movie.id !== id);
@@ -13,6 +16,12 @@ const MovieListPage = () => {
 
     // TODO : 삭제 api 연결필요
     console.log(id, "삭제");
+  };
+
+  const handleToggleAdmin = () => {
+    const newAdminStatus = !isAdmin;
+    setIsAdmin(newAdminStatus);
+    localStorage.setItem("isAdmin", JSON.stringify(newAdminStatus));
   };
 
   useEffect(() => {
@@ -56,7 +65,10 @@ const MovieListPage = () => {
       {movies.map((movie) => (
         <MovieItem key={movie.id} movie={movie} deleteAction={deleteMovie} />
       ))}
-      <AddMovieButton to="/create-movie">영화 추가</AddMovieButton>
+      {isAdmin && <AddMovieButton to="/create-movie">영화 추가</AddMovieButton>}
+      <HandleToggleAdminButton onClick={handleToggleAdmin}>
+        {isAdmin ? "일반 사용자 전환" : "관리자 전환"}
+      </HandleToggleAdminButton>
     </MovieListWrapper>
   );
 };
@@ -94,6 +106,25 @@ const AddMovieButton = styled(Link)`
   &:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+  }
+`;
+
+const HandleToggleAdminButton = styled.button`
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
 
