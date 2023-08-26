@@ -68,7 +68,7 @@ const RatedMovieListPage = () => {
         <PageNumber>{currentPage + 1}</PageNumber>
         <PaginationButton
           onClick={handleNextPage}
-          disabled={!movies || movies.length === 0}
+          disabled={!movies || movies.length < PAGE_SIZE}
         >
           다음
         </PaginationButton>
