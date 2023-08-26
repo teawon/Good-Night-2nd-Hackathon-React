@@ -11,6 +11,7 @@ import { MovieListWrapper, Title, AddMovieButton } from "../style";
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieResponseProps[]>([]);
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminAtom);
+  const [filteringGenre, setFilteringGenre] = useState<string>("");
 
   const handleDeleteMovie = async (id: number) => {
     try {
@@ -31,7 +32,7 @@ const MovieListPage = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const movieData = await getMovies();
+        const movieData = await getMovies(filteringGenre);
         setMovies(movieData);
       } catch (error) {
         console.error(error);
@@ -39,11 +40,22 @@ const MovieListPage = () => {
     };
 
     fetchMovies();
-  }, []);
+  }, [filteringGenre]);
 
   return (
     <MovieListWrapper>
       <Title>영화 목록</Title>
+      <GenreFilter
+        value={filteringGenre}
+        onChange={(e) => setFilteringGenre(e.target.value)}
+      >
+        <option value="">선택 안함</option>
+        <option value="스릴러">스릴러</option>
+        <option value="코믹">코믹</option>
+        <option value="로맨스">로맨스</option>
+        <option value="액션">액션</option>
+      </GenreFilter>
+
       <ViewRatedMoviesButton to="/rated-movies">
         평가된 영화 목록 조회하기
       </ViewRatedMoviesButton>
@@ -61,6 +73,13 @@ const MovieListPage = () => {
     </MovieListWrapper>
   );
 };
+
+const GenreFilter = styled.select`
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #d1d1d1;
+`;
 
 const HandleToggleAdminButton = styled.button`
   position: fixed;

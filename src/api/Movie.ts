@@ -1,9 +1,15 @@
 import axiosInstance from "./axiosInstance";
 import { MovieResponseProps, MovieRequestProps } from "utils/types";
 
-export const getMovies = async (): Promise<MovieResponseProps[]> => {
+export const getMovies = async (
+  filteringGenre: string = ""
+): Promise<MovieResponseProps[]> => {
   try {
-    const res = await axiosInstance.get<MovieResponseProps[]>("movies");
+    const res = await axiosInstance.get<MovieResponseProps[]>("movies", {
+      params: {
+        genre: filteringGenre,
+      },
+    });
     return res.data;
   } catch (error) {
     console.error(error);
