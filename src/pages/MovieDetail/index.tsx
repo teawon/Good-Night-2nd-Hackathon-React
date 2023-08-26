@@ -3,12 +3,9 @@ import styled from "styled-components";
 import { MovieProps } from "utils/types";
 import ReviewForm from "./components/Review/ReviewForm";
 import ReviewList from "./components/Review/ReviewList";
-import { FaFilm, FaStar, FaCalendarAlt, FaClock } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-
+import LinkButton from "components/LinkButton";
+import { iconMapping } from "assets/icons";
 const MovieDetailPage = () => {
-  const navigate = useNavigate();
-
   // TODO api연결 필요
   const dummyData: MovieProps = {
     id: 1,
@@ -22,19 +19,19 @@ const MovieDetailPage = () => {
 
   return (
     <DetailWrapper>
-      <BackButton onClick={() => navigate("/")}>영화 목록으로</BackButton>
+      <LinkButton text="영화 목록으로" url="/" iconName="arrow-left" />
       <MovieTitle>{dummyData.title}</MovieTitle>
       <MovieDetails>
-        <FaFilm /> 장르: {dummyData.genre}
+        {iconMapping["film"]} 장르: {dummyData.genre}
       </MovieDetails>
       <MovieDetails>
-        <FaStar /> 평점: {dummyData.rating || "평점 없음"}
+        {iconMapping["star"]} 평점: {dummyData.rating || "평점 없음"}
       </MovieDetails>
       <MovieDetails>
-        <FaCalendarAlt /> 개봉일: {dummyData.releaseDate}
+        {iconMapping["calendar"]} 개봉일: {dummyData.releaseDate}
       </MovieDetails>
       <MovieDetails>
-        <FaClock /> 상영 종료일: {dummyData.endDate}
+        {iconMapping["clock"]} 상영 종료일: {dummyData.endDate}
       </MovieDetails>
       <MovieDetails>
         {dummyData.isCurrentlyShowing ? "상영중" : "상영 종료"}
@@ -79,15 +76,6 @@ const MovieDetails = styled.p`
 const SectionDivider = styled.hr`
   margin: 30px 0;
   border-top: 2px dashed #e0e0e0;
-`;
-
-const BackButton = styled.button`
-  background-color: transparent;
-  border: none;
-  font-size: 1rem;
-  margin-bottom: 20px;
-  cursor: pointer;
-  color: #3498db;
 `;
 
 export default MovieDetailPage;
