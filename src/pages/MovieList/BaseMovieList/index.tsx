@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 import { isAdminAtom } from "recoil/state/authAtom";
 import { getMovies, deleteMovie } from "api/movie";
 import { MovieListWrapper, Title, AddMovieButton } from "../style";
+import { GENRES } from "assets/constants";
 
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieResponseProps[]>([]);
@@ -50,10 +51,11 @@ const MovieListPage = () => {
         onChange={(e) => setFilteringGenre(e.target.value)}
       >
         <option value="">선택 안함</option>
-        <option value="스릴러">스릴러</option>
-        <option value="코믹">코믹</option>
-        <option value="로맨스">로맨스</option>
-        <option value="액션">액션</option>
+        {GENRES.map((genre) => (
+          <option key={genre.value} value={genre.value}>
+            {genre.label}
+          </option>
+        ))}
       </GenreFilter>
 
       <ViewRatedMoviesButton to="/rated-movies">

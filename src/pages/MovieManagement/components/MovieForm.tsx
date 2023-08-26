@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ko from "date-fns/locale/ko";
+import { GENRES } from "assets/constants";
 
 registerLocale("ko", ko);
 
@@ -34,10 +35,11 @@ const MovieForm: React.FunctionComponent<MovieFormProps> = ({
 
         <Label>장르:</Label>
         <Select value={genre} onChange={(e) => onGenreChange(e.target.value)}>
-          <option value="스릴러">스릴러</option>
-          <option value="로맨스">로맨스</option>
-          <option value="코믹">코믹</option>
-          <option value="액션">액션</option>
+          {GENRES.map((genre) => (
+            <option key={genre.value} value={genre.value}>
+              {genre.label}
+            </option>
+          ))}
         </Select>
 
         <Label>개봉일 ~ 마감일:</Label>
