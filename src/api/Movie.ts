@@ -1,9 +1,9 @@
 import axiosInstance from "./axiosInstance";
-import { MovieProps, CreateMovieProps } from "utils/types";
+import { MovieResponseProps, MovieRequestProps } from "utils/types";
 
-export const getMovies = async (): Promise<MovieProps[]> => {
+export const getMovies = async (): Promise<MovieResponseProps[]> => {
   try {
-    const res = await axiosInstance.get<MovieProps[]>("movies");
+    const res = await axiosInstance.get<MovieResponseProps[]>("movies");
     return res.data;
   } catch (error) {
     console.error(error);
@@ -12,7 +12,7 @@ export const getMovies = async (): Promise<MovieProps[]> => {
 };
 
 export const createMovie = async (
-  movieData: CreateMovieProps
+  movieData: MovieRequestProps
 ): Promise<void> => {
   try {
     await axiosInstance.post("movies", movieData);
@@ -23,7 +23,7 @@ export const createMovie = async (
 };
 
 export const updateMovie = async (
-  movieData: CreateMovieProps,
+  movieData: MovieRequestProps,
   movieId: number
 ): Promise<void> => {
   try {
@@ -34,7 +34,9 @@ export const updateMovie = async (
   }
 };
 
-export const getMovie = async (movieId: number): Promise<MovieProps> => {
+export const getMovie = async (
+  movieId: number
+): Promise<MovieResponseProps> => {
   try {
     const res = await axiosInstance.get(`movies/${movieId}`);
     return res.data;

@@ -1,9 +1,9 @@
 import axiosInstance from "./axiosInstance";
-import { ReviewProps, CreateReviewProps } from "utils/types";
+import { ReviewResponseProps, ReviewRequestProps } from "utils/types";
 
 export const getReviewsByMovieId = async (
   movieId: number
-): Promise<ReviewProps[]> => {
+): Promise<ReviewResponseProps[]> => {
   try {
     const response = await axiosInstance.get(`reviews?movieId=${movieId}`);
     return response.data;
@@ -14,7 +14,7 @@ export const getReviewsByMovieId = async (
 };
 
 export const createReview = async (
-  reviewData: CreateReviewProps
+  reviewData: ReviewRequestProps
 ): Promise<void> => {
   try {
     await axiosInstance.post("reviews", reviewData);

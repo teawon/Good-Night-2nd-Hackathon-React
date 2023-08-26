@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { ReviewProps } from "utils/types";
+import { ReviewResponseProps } from "utils/types";
 
 interface ReviewItemProps {
-  review: ReviewProps;
+  review: ReviewResponseProps;
 }
 
 const ReviewItem = ({ review }: ReviewItemProps) => {

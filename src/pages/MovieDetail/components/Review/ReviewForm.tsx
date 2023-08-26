@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { createReview } from "api/review";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { CreateReviewProps } from "utils/types";
+import { ReviewRequestProps } from "utils/types";
 import { reviewListState } from "recoil/state/reviewAtom";
 import { useSetRecoilState } from "recoil";
 import { getReviewsByMovieId } from "api/review";
@@ -19,7 +19,7 @@ const ReviewForm = () => {
       return;
     }
 
-    const reviewData: CreateReviewProps = {
+    const reviewData: ReviewRequestProps = {
       movieId: Number(id),
       score,
       comment,

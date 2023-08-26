@@ -1,29 +1,26 @@
-export interface MovieProps {
-  id: number;
+interface BaseMovieProps {
   title: string;
-  rating: number | null;
+  genre: string;
   releasedAt: string;
   endAt: string;
-  genre: string;
+}
+
+export interface MovieRequestProps extends BaseMovieProps {}
+
+export interface MovieResponseProps extends BaseMovieProps {
+  id: number;
+  rating: number | null;
   isShowing: boolean;
 }
 
-export interface CreateMovieProps {
-  title: string;
-  genre: string;
-  releasedAt: string;
-  endAt: string;
+interface BaseReviewProps {
+  movieId: number;
+  score: number;
+  comment: string;
 }
 
-export interface ReviewProps {
+export interface ReviewRequestProps extends BaseReviewProps {}
+
+export interface ReviewResponseProps extends BaseReviewProps {
   id: number;
-  movieId: number;
-  score: number;
-  comment: string;
-}
-
-export interface CreateReviewProps {
-  movieId: number;
-  score: number;
-  comment: string;
 }

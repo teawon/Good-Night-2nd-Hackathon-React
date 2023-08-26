@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MovieItem from "./components/MovieItem";
-import { MovieProps } from "utils/types";
+import { MovieResponseProps } from "utils/types";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isAdminAtom } from "recoil/state/authAtom";
 import { getMovies, deleteMovie } from "api/movie";
 
 const MovieListPage = () => {
-  const [movies, setMovies] = useState<MovieProps[]>([]);
+  const [movies, setMovies] = useState<MovieResponseProps[]>([]);
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminAtom);
 
   const handleDeleteMovie = async (id: number) => {

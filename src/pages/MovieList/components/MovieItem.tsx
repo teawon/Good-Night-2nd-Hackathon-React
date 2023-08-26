@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { MovieProps } from "utils/types";
+import { MovieResponseProps } from "utils/types";
 import { isAdminAtom } from "recoil/state/authAtom";
 import { useRecoilValue } from "recoil";
 interface MovieItemProps {
-  movie: MovieProps;
+  movie: MovieResponseProps;
   deleteAction: (id: number) => void;
 }
 

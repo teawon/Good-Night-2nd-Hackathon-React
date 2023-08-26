@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { MovieProps } from "utils/types";
+import { MovieResponseProps } from "utils/types";
 import ReviewForm from "./components/Review/ReviewForm";
 import ReviewList from "./components/Review/ReviewList";
 import LinkButton from "components/LinkButton";
@@ -9,7 +9,7 @@ import { getMovie } from "api/movie";
 import { iconMapping } from "assets/icons";
 
 const MovieDetailPage = () => {
-  const [movie, setMovie] = useState<MovieProps | null>(null);
+  const [movie, setMovie] = useState<MovieResponseProps | null>(null);
   const { id } = useParams();
 
   useEffect(() => {
