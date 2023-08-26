@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { MovieProps } from "utils/types";
-
+import { isAdminAtom } from "recoil/state/authAtom";
+import { useRecoilValue } from "recoil";
 interface MovieItemProps {
   movie: MovieProps;
   deleteAction: (id: number) => void;
@@ -11,8 +12,7 @@ interface MovieItemProps {
 const MovieItem = ({ movie, deleteAction }: MovieItemProps) => {
   const navigate = useNavigate();
   const [showDeletePopup, setShowDeletePopup] = useState(false);
-
-  const isAdmin = JSON.parse(localStorage.getItem("isAdmin") || "false");
+  const isAdmin = useRecoilValue(isAdminAtom);
 
   const handleMovieClick = () => {
     navigate(`/movie/${movie.id}`);

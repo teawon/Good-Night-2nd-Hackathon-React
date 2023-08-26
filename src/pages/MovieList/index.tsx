@@ -3,12 +3,12 @@ import styled from "styled-components";
 import MovieItem from "./components/MovieItem";
 import { MovieProps } from "utils/types";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { isAdminAtom } from "recoil/state/authAtom";
 
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieProps[]>([]);
-  const [isAdmin, setIsAdmin] = useState<boolean>(
-    JSON.parse(localStorage.getItem("isAdmin") || "false")
-  );
+  const [isAdmin, setIsAdmin] = useRecoilState(isAdminAtom);
 
   const deleteMovie = (id: number) => {
     const updatedMovies = movies.filter((movie) => movie.id !== id);
