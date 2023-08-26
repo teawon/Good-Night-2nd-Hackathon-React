@@ -1,40 +1,61 @@
 import styled from "styled-components";
+import { createReview } from "api/review";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { CreateReviewProps } from "utils/types";
+import { reviewListState } from "recoil/state/reviewAtom";
+import { useSetRecoilState } from "recoil";
+import { getReviewsByMovieId } from "api/review";
 
 const ReviewForm = () => {
-  const [text, setText] = useState("");
-  const [rating, setRating] = useState(0);
+  const { id } = useParams();
+  const [comment, setComment] = useState("");
+  const [score, setScore] = useState(0);
+  const setReviews = useSetRecoilState(reviewListState);
 
-  const handleSubmit = () => {
-    if (!text || rating === 0) {
+  const handleSubmit = async () => {
+    if (!comment || score === 0) {
       alert("리뷰와 평점을 모두 입력해주세요.");
       return;
     }
 
-    console.log("리뷰 등록:", text, rating);
-    setText("");
-    setRating(0);
+    const reviewData: CreateReviewProps = {
+      movieId: Number(id),
+      score,
+      comment,
+    };
+
+    try {
+      await createReview(reviewData);
+      const updatedReviews = await getReviewsByMovieId(Number(id));
+      setReviews(updatedReviews);
+    } catch (error) {
+      alert("리뷰 등록에 실패했습니다.");
+    }
+
+    setComment("");
+    setScore(0);
   };
 
   return (
     <ReviewFormWrapper>
       <TextArea
         rows={4}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
         placeholder="리뷰를 입력해주세요."
       />
-      <RatingSelect
-        value={rating}
-        onChange={(e) => setRating(Number(e.target.value))}
+      <ScoreSelect
+        value={score}
+        onChange={(e) => setScore(Number(e.target.value))}
       >
         <option value={0}>평점 선택</option>
-        {[...Array(11)].map((_, i) => (
-          <option value={i / 2} key={i}>
-            {i / 2}
+        {[...Array(5)].map((_, i) => (
+          <option value={i + 1} key={i}>
+            {i + 1}
           </option>
         ))}
-      </RatingSelect>
+      </ScoreSelect>
       <SubmitButton onClick={handleSubmit}>리뷰 등록</SubmitButton>
     </ReviewFormWrapper>
   );
@@ -61,7 +82,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-const RatingSelect = styled.select`
+const ScoreSelect = styled.select`
   margin-right: 10px;
   padding: 6px 10px;
   border: 1px solid #e0e0e0;

@@ -18,7 +18,7 @@ const MovieDetailPage = () => {
         const response = await getMovie(Number(id));
         setMovie(response);
       } catch (error) {
-        console.error("Failed to fetch movie details:", error);
+        console.error(error);
       }
     };
 

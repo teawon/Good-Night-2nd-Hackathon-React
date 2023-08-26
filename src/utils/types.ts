@@ -17,6 +17,13 @@ export interface CreateMovieProps {
 
 export interface ReviewProps {
   id: number;
-  text: string;
-  rating: number;
+  movieId: number;
+  score: number;
+  comment: string;
+}
+
+export interface CreateReviewProps {
+  movieId: number;
+  score: number;
+  comment: string;
 }

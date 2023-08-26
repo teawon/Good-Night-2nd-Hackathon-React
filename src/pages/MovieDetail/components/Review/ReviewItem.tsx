@@ -8,8 +8,8 @@ interface ReviewItemProps {
 const ReviewItem = ({ review }: ReviewItemProps) => {
   return (
     <ReviewWrapper>
-      <ReviewRating>평점: {review.rating}점</ReviewRating>
-      <ReviewText>{review.text}</ReviewText>
+      <ReviewRating>평점: {review.score}점</ReviewRating>
+      <ReviewText>{review.comment}</ReviewText>
     </ReviewWrapper>
   );
 };
