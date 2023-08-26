@@ -2,10 +2,10 @@ export interface MovieProps {
   id: number;
   title: string;
   rating: number | null;
-  releaseDate: string;
-  endDate: string;
+  releasedAt: string;
+  endAt: string;
   genre: string;
-  isCurrentlyShowing: boolean;
+  isShowing: boolean;
 }
 
 export interface ReviewProps {

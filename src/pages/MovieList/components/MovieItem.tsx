@@ -38,11 +38,9 @@ const MovieItem = ({ movie, deleteAction }: MovieItemProps) => {
       <MovieWrapper onClick={handleMovieClick}>
         <MovieTitle>{movie.title}</MovieTitle>
         <MovieDetails>장르: {movie.genre}</MovieDetails>
-        <MovieDetails>개봉일: {movie.releaseDate}</MovieDetails>
-        <MovieDetails>상영 종료일: {movie.endDate}</MovieDetails>
-        <MovieDetails>
-          {movie.isCurrentlyShowing ? "상영중" : "상영 종료"}
-        </MovieDetails>
+        <MovieDetails>개봉일: {movie.releasedAt}</MovieDetails>
+        <MovieDetails>상영 종료일: {movie.endAt}</MovieDetails>
+        <MovieDetails>{movie.isShowing ? "상영중" : "상영 종료"}</MovieDetails>
         {isAdmin && (
           <>
             <EditButton onClick={handleEditClick}>수정</EditButton>

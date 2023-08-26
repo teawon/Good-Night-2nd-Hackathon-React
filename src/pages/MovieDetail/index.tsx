@@ -11,10 +11,10 @@ const MovieDetailPage = () => {
     id: 1,
     title: "영화 1",
     rating: 4.5,
-    releaseDate: "2022-01-01",
-    endDate: "2022-05-01",
+    releasedAt: "2022-01-01",
+    endAt: "2022-05-01",
     genre: "액션",
-    isCurrentlyShowing: true,
+    isShowing: true,
   };
 
   return (
@@ -28,13 +28,13 @@ const MovieDetailPage = () => {
         {iconMapping["star"]} 평점: {dummyData.rating || "평점 없음"}
       </MovieDetails>
       <MovieDetails>
-        {iconMapping["calendar"]} 개봉일: {dummyData.releaseDate}
+        {iconMapping["calendar"]} 개봉일: {dummyData.releasedAt}
       </MovieDetails>
       <MovieDetails>
-        {iconMapping["clock"]} 상영 종료일: {dummyData.endDate}
+        {iconMapping["clock"]} 상영 종료일: {dummyData.endAt}
       </MovieDetails>
       <MovieDetails>
-        {dummyData.isCurrentlyShowing ? "상영중" : "상영 종료"}
+        {dummyData.isShowing ? "상영중" : "상영 종료"}
       </MovieDetails>
 
       <SectionDivider />

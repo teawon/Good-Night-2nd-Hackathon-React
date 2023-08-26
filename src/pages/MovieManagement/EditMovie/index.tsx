@@ -17,15 +17,12 @@ const EditMovie = () => {
       title: "영화",
       genre: "코믹",
       openDate: "2020-02-01",
-      endDate: "2020-03-02",
+      endAt: "2020-03-02",
     };
 
     setTitle(fetchedData.title);
     setGenre(fetchedData.genre);
-    setDateRange([
-      new Date(fetchedData.openDate),
-      new Date(fetchedData.endDate),
-    ]);
+    setDateRange([new Date(fetchedData.openDate), new Date(fetchedData.endAt)]);
   }, []);
 
   const handleSubmit = () => {
@@ -33,7 +30,7 @@ const EditMovie = () => {
       title,
       genre,
       openDate: dateRange[0]?.toISOString().split("T")[0],
-      endDate: dateRange[1]?.toISOString().split("T")[0],
+      endAt: dateRange[1]?.toISOString().split("T")[0],
     };
 
     console.log(movieData);

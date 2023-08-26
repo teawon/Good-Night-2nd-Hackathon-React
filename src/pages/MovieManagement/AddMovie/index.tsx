@@ -16,7 +16,7 @@ const AddMovie = () => {
       title,
       genre,
       startDate: dateRange[0]?.toISOString().split("T")[0],
-      endDate: dateRange[1]?.toISOString().split("T")[0],
+      endAt: dateRange[1]?.toISOString().split("T")[0],
     };
 
     console.log(movieData);

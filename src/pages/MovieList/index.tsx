@@ -5,6 +5,7 @@ import { MovieProps } from "utils/types";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isAdminAtom } from "recoil/state/authAtom";
+import { getMovies } from "api/movie";
 
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieProps[]>([]);
@@ -26,36 +27,16 @@ const MovieListPage = () => {
 
   useEffect(() => {
     // TODO: api 연결 필요
-    const fetchMovies = () => {
-      return new Promise<MovieProps[]>((resolve) => {
-        setTimeout(() => {
-          resolve([
-            {
-              id: 1,
-              title: "영화 1",
-              rating: 4.5,
-              releaseDate: "2022-01-01",
-              endDate: "2022-05-01",
-              genre: "액션",
-              isCurrentlyShowing: true,
-            },
-            {
-              id: 2,
-              title: "영화 2",
-              rating: null,
-              releaseDate: "2021-05-20",
-              endDate: "2021-10-20",
-              genre: "로맨스",
-              isCurrentlyShowing: false,
-            },
-          ]);
-        }, 100);
-      });
+    const fetchMovies = async () => {
+      try {
+        const movieData = await getMovies(); // 실제 API 호출
+        setMovies(movieData);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    fetchMovies().then((data) => {
-      setMovies(data);
-    });
+    fetchMovies();
   }, []);
 
   return (
