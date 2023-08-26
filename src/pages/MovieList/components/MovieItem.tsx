@@ -40,6 +40,7 @@ const MovieItem = ({ movie, deleteAction }: MovieItemProps) => {
         <MovieDetails>장르: {movie.genre}</MovieDetails>
         <MovieDetails>개봉일: {movie.releasedAt}</MovieDetails>
         <MovieDetails>상영 종료일: {movie.endAt}</MovieDetails>
+        {movie.scoreAvg && <MovieDetails>평점: {movie.scoreAvg}</MovieDetails>}
         <MovieDetails>{movie.isShowing ? "상영중" : "상영 종료"}</MovieDetails>
         {isAdmin && (
           <>

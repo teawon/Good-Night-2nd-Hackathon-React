@@ -2,6 +2,7 @@ interface BaseMovieProps {
   title: string;
   genre: string;
   releasedAt: string;
+  scoreAvg?: string;
   endAt: string;
 }
 

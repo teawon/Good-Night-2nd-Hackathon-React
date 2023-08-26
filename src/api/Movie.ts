@@ -11,6 +11,26 @@ export const getMovies = async (): Promise<MovieResponseProps[]> => {
   }
 };
 
+export const getRatedMovies = async ({
+  page,
+  size,
+}: {
+  page: number;
+  size: number;
+}) => {
+  try {
+    const response = await axiosInstance.get(`movies/score`, {
+      params: {
+        page,
+        size,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createMovie = async (
   movieData: MovieRequestProps
 ): Promise<void> => {

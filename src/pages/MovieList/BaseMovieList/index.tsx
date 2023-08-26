@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import MovieItem from "./components/MovieItem";
+import MovieItem from "../components/MovieItem";
 import { MovieResponseProps } from "utils/types";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isAdminAtom } from "recoil/state/authAtom";
 import { getMovies, deleteMovie } from "api/movie";
+import { MovieListWrapper, Title, AddMovieButton } from "../style";
 
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieResponseProps[]>([]);
@@ -28,10 +29,9 @@ const MovieListPage = () => {
   };
 
   useEffect(() => {
-    // TODO: api 연결 필요
     const fetchMovies = async () => {
       try {
-        const movieData = await getMovies(); // 실제 API 호출
+        const movieData = await getMovies();
         setMovies(movieData);
       } catch (error) {
         console.error(error);
@@ -44,7 +44,9 @@ const MovieListPage = () => {
   return (
     <MovieListWrapper>
       <Title>영화 목록</Title>
-
+      <ViewRatedMoviesButton to="/rated-movies">
+        평가된 영화 목록 조회하기
+      </ViewRatedMoviesButton>
       {movies?.map((movie) => (
         <MovieItem
           key={movie.id}
@@ -59,42 +61,6 @@ const MovieListPage = () => {
     </MovieListWrapper>
   );
 };
-
-const MovieListWrapper = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-  background-color: #ffffff;
-  border-radius: 10px;
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5rem;
-  color: #2c3e50;
-  letter-spacing: 1.5px;
-  font-weight: 600;
-`;
-
-const AddMovieButton = styled(Link)`
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.2s, transform 0.2s;
-
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-
-  &:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-`;
 
 const HandleToggleAdminButton = styled.button`
   position: fixed;
@@ -112,6 +78,22 @@ const HandleToggleAdminButton = styled.button`
 
   &:hover {
     opacity: 0.8;
+  }
+`;
+
+const ViewRatedMoviesButton = styled(Link)`
+  display: block;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  text-align: center;
+  background-color: #3498db;
+  color: #ffffff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2980b9;
   }
 `;
 

@@ -33,9 +33,6 @@ const MovieDetailPage = () => {
         {iconMapping["film"]} 장르: {movie?.genre}
       </MovieDetails>
       <MovieDetails>
-        {iconMapping["star"]} 평점: {movie?.rating || "평점 없음"}
-      </MovieDetails>
-      <MovieDetails>
         {iconMapping["calendar"]} 개봉일: {movie?.releasedAt}
       </MovieDetails>
       <MovieDetails>
