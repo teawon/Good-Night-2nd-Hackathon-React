@@ -2,38 +2,55 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import MovieForm from "../components/MovieForm";
 import LinkButton from "components/LinkButton";
+import { useParams, useNavigate } from "react-router-dom";
+import { getMovie, updateMovie } from "api/movie";
 
 const EditMovie = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState("스릴러");
   const [dateRange, setDateRange] = useState<[Date?, Date?]>([
     undefined,
     undefined,
   ]);
 
   useEffect(() => {
-    // TODO api연결 필요
-    const fetchedData = {
-      title: "영화",
-      genre: "코믹",
-      openDate: "2020-02-01",
-      endAt: "2020-03-02",
+    const fetchMovieDetail = async () => {
+      try {
+        const response = await getMovie(Number(id));
+        setTitle(response.title);
+        setGenre(response.genre);
+        setDateRange([new Date(response.releasedAt), new Date(response.endAt)]);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    setTitle(fetchedData.title);
-    setGenre(fetchedData.genre);
-    setDateRange([new Date(fetchedData.openDate), new Date(fetchedData.endAt)]);
-  }, []);
+    fetchMovieDetail();
+  }, [id]);
 
-  const handleSubmit = () => {
-    const movieData = {
-      title,
-      genre,
-      openDate: dateRange[0]?.toISOString().split("T")[0],
-      endAt: dateRange[1]?.toISOString().split("T")[0],
-    };
+  const handleSubmit = async () => {
+    if (!dateRange[0] || !dateRange[1]) {
+      console.log("날짜를 모두 선택해주세요");
+      return;
+    }
 
-    console.log(movieData);
+    try {
+      await updateMovie(
+        {
+          title,
+          genre,
+          releasedAt: dateRange[0].toISOString(),
+          endAt: dateRange[1].toISOString(),
+        },
+        Number(id)
+      );
+      alert("영화가 성공적으로 수정되었습니다.");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

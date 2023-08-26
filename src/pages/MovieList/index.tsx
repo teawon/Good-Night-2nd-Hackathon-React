@@ -5,18 +5,20 @@ import { MovieProps } from "utils/types";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isAdminAtom } from "recoil/state/authAtom";
-import { getMovies } from "api/movie";
+import { getMovies, deleteMovie } from "api/movie";
 
 const MovieListPage = () => {
   const [movies, setMovies] = useState<MovieProps[]>([]);
   const [isAdmin, setIsAdmin] = useRecoilState(isAdminAtom);
 
-  const deleteMovie = (id: number) => {
-    const updatedMovies = movies.filter((movie) => movie.id !== id);
-    setMovies(updatedMovies);
-
-    // TODO : 삭제 api 연결필요
-    console.log(id, "삭제");
+  const handleDeleteMovie = async (id: number) => {
+    try {
+      await deleteMovie(id);
+      const updatedMovies = movies.filter((movie) => movie.id !== id);
+      setMovies(updatedMovies);
+    } catch (error) {
+      console.error("영화 삭제 중 오류 발생:", error);
+    }
   };
 
   const handleToggleAdmin = () => {
@@ -43,8 +45,12 @@ const MovieListPage = () => {
     <MovieListWrapper>
       <Title>영화 목록</Title>
 
-      {movies.map((movie) => (
-        <MovieItem key={movie.id} movie={movie} deleteAction={deleteMovie} />
+      {movies?.map((movie) => (
+        <MovieItem
+          key={movie.id}
+          movie={movie}
+          deleteAction={handleDeleteMovie}
+        />
       ))}
       {isAdmin && <AddMovieButton to="/create-movie">영화 추가</AddMovieButton>}
       <HandleToggleAdminButton onClick={handleToggleAdmin}>

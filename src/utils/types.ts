@@ -8,6 +8,13 @@ export interface MovieProps {
   isShowing: boolean;
 }
 
+export interface CreateMovieProps {
+  title: string;
+  genre: string;
+  releasedAt: string;
+  endAt: string;
+}
+
 export interface ReviewProps {
   id: number;
   text: string;

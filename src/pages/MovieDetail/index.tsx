@@ -1,41 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MovieProps } from "utils/types";
 import ReviewForm from "./components/Review/ReviewForm";
 import ReviewList from "./components/Review/ReviewList";
 import LinkButton from "components/LinkButton";
+import { useParams } from "react-router-dom";
+import { getMovie } from "api/movie";
 import { iconMapping } from "assets/icons";
+
 const MovieDetailPage = () => {
-  // TODO api연결 필요
-  const dummyData: MovieProps = {
-    id: 1,
-    title: "영화 1",
-    rating: 4.5,
-    releasedAt: "2022-01-01",
-    endAt: "2022-05-01",
-    genre: "액션",
-    isShowing: true,
-  };
+  const [movie, setMovie] = useState<MovieProps | null>(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchMovieDetail = async () => {
+      try {
+        const response = await getMovie(Number(id));
+        setMovie(response);
+      } catch (error) {
+        console.error("Failed to fetch movie details:", error);
+      }
+    };
+
+    fetchMovieDetail();
+  }, [id]);
 
   return (
     <DetailWrapper>
       <LinkButton text="영화 목록으로" url="/" iconName="arrow-left" />
-      <MovieTitle>{dummyData.title}</MovieTitle>
+      <MovieTitle>{movie?.title}</MovieTitle>
       <MovieDetails>
-        {iconMapping["film"]} 장르: {dummyData.genre}
+        {iconMapping["film"]} 장르: {movie?.genre}
       </MovieDetails>
       <MovieDetails>
-        {iconMapping["star"]} 평점: {dummyData.rating || "평점 없음"}
+        {iconMapping["star"]} 평점: {movie?.rating || "평점 없음"}
       </MovieDetails>
       <MovieDetails>
-        {iconMapping["calendar"]} 개봉일: {dummyData.releasedAt}
+        {iconMapping["calendar"]} 개봉일: {movie?.releasedAt}
       </MovieDetails>
       <MovieDetails>
-        {iconMapping["clock"]} 상영 종료일: {dummyData.endAt}
+        {iconMapping["clock"]} 상영 종료일: {movie?.endAt}
       </MovieDetails>
-      <MovieDetails>
-        {dummyData.isShowing ? "상영중" : "상영 종료"}
-      </MovieDetails>
+      <MovieDetails>{movie?.isShowing ? "상영중" : "상영 종료"}</MovieDetails>
 
       <SectionDivider />
 

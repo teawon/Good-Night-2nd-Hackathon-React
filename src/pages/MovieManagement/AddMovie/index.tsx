@@ -2,8 +2,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import MovieForm from "../components/MovieForm";
 import LinkButton from "components/LinkButton";
+import { createMovie } from "api/movie";
+import { useNavigate } from "react-router-dom";
 
 const AddMovie = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("스릴러");
   const [dateRange, setDateRange] = useState<[Date?, Date?]>([
@@ -11,15 +14,24 @@ const AddMovie = () => {
     undefined,
   ]);
 
-  const handleSubmit = () => {
-    const movieData = {
-      title,
-      genre,
-      startDate: dateRange[0]?.toISOString().split("T")[0],
-      endAt: dateRange[1]?.toISOString().split("T")[0],
-    };
+  const handleSubmit = async () => {
+    if (!dateRange[0] || !dateRange[1]) {
+      console.log("날짜를 모두 선택해주세요");
+      return;
+    }
 
-    console.log(movieData);
+    try {
+      await createMovie({
+        title,
+        genre,
+        releasedAt: dateRange[0].toISOString(),
+        endAt: dateRange[1].toISOString(),
+      });
+      alert("영화가 성공적으로 추가되었습니다.");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
